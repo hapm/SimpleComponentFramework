@@ -24,6 +24,20 @@ public interface IComponent {
 	public String getName();
 	
 	/**
+	 * Gets the version number of this component.
+	 * 
+	 * The integer part of the number is the major version
+	 * and the fractional digits are the minor version. There
+	 * are two decimal places for the minor version. So the 
+	 * version number 1.1 means 1.10, what is the first major
+	 * version and the 10s minor version. This is to allow easy 
+	 * comparing of different versions.
+	 * 
+	 * @return The number of the version of the component.
+	 */
+	public float getVersion();
+	
+	/**
 	 * Gets a description of the component with detailed
 	 * information of what the component does.
 	 * 
