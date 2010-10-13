@@ -11,6 +11,36 @@ package fhbrs.ooka.ateam.components;
  */
 public interface IComponent {
 	/**
+	 * Gets the name readable name of this component, that
+	 * can be used to represent the component in the user
+	 * interface.
+	 * 
+	 * This method can be called regardless to the state of 
+	 * the component. So it should only return the name and 
+	 * do no other actions. 
+	 * 
+	 * @return The human readable name of the component.
+	 */
+	public String getName();
+	
+	/**
+	 * Gets a description of the component with detailed
+	 * information of what the component does.
+	 * 
+	 * @return A description (can be multilined).
+	 */
+	public String getDescription();
+	
+	/**
+	 * Gets the current state of the Component. The values are 
+	 * documented in {@link ComponentState} enumeration.
+	 * 
+	 * @return The current state of the Component.
+	 * @see ComponentState
+	 */
+	public ComponentState getState();
+	
+	/**
 	 * This method is called, when the SimpleComponentFramework
 	 * was requested to start this component.
 	 * 
@@ -42,34 +72,4 @@ public interface IComponent {
 	 *         moment.
 	 */
 	public void stop() throws Exception;
-	
-	/**
-	 * Gets the name readable name of this component, that
-	 * can be used to represent the component in the user
-	 * interface.
-	 * 
-	 * This method can be called regardless to the state of 
-	 * the component. So it should only return the name and 
-	 * do no other actions. 
-	 * 
-	 * @return The human readable name of the component.
-	 */
-	public String getName();
-	
-	/**
-	 * Gets a description of the component with detailed
-	 * information of what the component does.
-	 * 
-	 * @return A description (can be multilined).
-	 */
-	public String getDescription();
-	
-	/**
-	 * Gets the current state of the Component. The values are 
-	 * documented in {@link ComponentState} enumeration.
-	 * 
-	 * @return The current state of the Component.
-	 * @see ComponentState
-	 */
-	public ComponentState getState();
 }
