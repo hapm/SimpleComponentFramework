@@ -121,12 +121,11 @@ public class ComponentRepository {
 		Class<?> result = null;
 		for (String source : sources) {
 			result = findClass(className, source);
+			if (result != null) {
+				return result;
+			}
 		}
 		
-		if (result == null) {
-			throw new ClassNotFoundException(className);
-		}
-		
-		return result;
+		throw new ClassNotFoundException(className);
 	}
 }
