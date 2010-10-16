@@ -83,4 +83,14 @@ public class ComponentManager {
         components.remove(component);
     }
 
+    /**
+     * The remove Method allows removing a component from the ArrayList. It
+     * should be called by the Main class when an existing Component is deleted.
+     *
+     * @author David Goering
+     */
+    public ArrayList<IComponent> getAllComponents(IComponent component) {
+	return components;
+    }
+
 } 
