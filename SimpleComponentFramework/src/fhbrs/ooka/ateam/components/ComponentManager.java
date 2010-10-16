@@ -84,12 +84,11 @@ public class ComponentManager {
     }
 
     /**
-     * The remove Method allows removing a component from the ArrayList. It
-     * should be called by the Main class when an existing Component is deleted.
+     * The getAllComponents method returns all registered Components
      *
      * @author David Goering
      */
-    public ArrayList<IComponent> getAllComponents(IComponent component) {
+    public ArrayList<IComponent> getAllComponents() {
 	return components;
     }
 
