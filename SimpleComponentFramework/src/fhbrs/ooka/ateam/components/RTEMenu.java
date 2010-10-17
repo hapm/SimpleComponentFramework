@@ -39,6 +39,7 @@ public class RTEMenu {
 	
 	private void mainMenu() throws IOException{
 		System.out.println("Please enter a number to choose an option:");
+		System.out.println("0: Exit");
 		System.out.println("1: Show all loaded Components");
 		System.out.println("2: Show all running Components");
 		System.out.println("3: Add a component");
