@@ -1,5 +1,6 @@
 package fhbrs.ooka.ateam.components;
 
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -9,7 +10,7 @@ import java.util.ArrayList;
  * 
  * @author Markus Andree
  */
-public class SourceList extends ArrayList<String> {
+public class SourceList extends ArrayList<URL> {
 	/**
 	 * The serial version uid.
 	 */

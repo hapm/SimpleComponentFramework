@@ -13,9 +13,11 @@ public class RTEMenu {
     
 	private BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 	private String input;
+	private ComponentRepository repo;
 	    
-	public RTEMenu(ComponentManager manager){
+	public RTEMenu(ComponentManager manager, ComponentRepository repo){
 		this.manager = manager;
+		this.repo = repo;
 	}	
 	
 	public void menu() throws Exception{

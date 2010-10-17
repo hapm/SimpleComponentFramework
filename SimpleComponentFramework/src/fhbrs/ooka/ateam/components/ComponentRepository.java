@@ -1,5 +1,7 @@
 package fhbrs.ooka.ateam.components;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.URLClassLoader;
 
 /**
@@ -10,12 +12,6 @@ import java.net.URLClassLoader;
  */
 public class ComponentRepository {
 	/**
-	 * Used to save the ClassLoader instance that is used to
-	 * get the Class instances for given component classes. 
-	 */
-	private URLClassLoader clsLoader;
-	
-	/**
 	 * Saves the list of sources to search in for given components.
 	 */
 	private SourceList sources;
@@ -25,7 +21,6 @@ public class ComponentRepository {
 	 */
 	public ComponentRepository() {
 		this.sources = new SourceList();
-		//TODO add something useful here, like initializing the class loader etc...
 	}
 	
 	/**
@@ -84,7 +79,7 @@ public class ComponentRepository {
 	 *                                for some other reason.
 	 * @throws ClassIsNoComponentException if the given class doesn't implement the IComponent interface.
 	 */
-	public IComponent createComponent(String className, String source) throws ClassNotFoundException, InstantiationException, IllegalAccessException, ClassIsNoComponentException {
+	public IComponent createComponent(String className, URL source) throws ClassNotFoundException, InstantiationException, IllegalAccessException, ClassIsNoComponentException {
 		Class<?> compCls = findClass(className, source);
 		if (!IComponent.class.isAssignableFrom(compCls)) {
 			throw new ClassIsNoComponentException(compCls);
@@ -102,10 +97,12 @@ public class ComponentRepository {
 	 *                  including the package name.
 	 * @return The Class instance representing the given class name. 
 	 * @throws ClassNotFoundException if the class wasn't found in any of the sources.
+	 * @throws MalformedURLException if the given source couldn't be parsed to an URL.
 	 */
-	private Class<?> findClass(String className, String source) throws ClassNotFoundException {
-		//TODO thats the hard work, search all sources for the given class name.
-		return null;
+	private Class<?> findClass(String className, URL source) throws ClassNotFoundException {
+		URLClassLoader clsLoader = new URLClassLoader(new URL[] { source });
+		Class<?> result = clsLoader.loadClass(className);
+		return result;
 	}
 
 	/**
@@ -118,14 +115,8 @@ public class ComponentRepository {
 	 * @throws ClassNotFoundException if the class wasn't found in any of the sources.
 	 */
 	private Class<?> findClass(String className) throws ClassNotFoundException {
-		Class<?> result = null;
-		for (String source : sources) {
-			result = findClass(className, source);
-			if (result != null) {
-				return result;
-			}
-		}
-		
-		throw new ClassNotFoundException(className);
+		URLClassLoader clsLoader = new URLClassLoader(sources.toArray(new URL[0]));
+		Class<?> result = clsLoader.loadClass(className);
+		return result;
 	}
 }
