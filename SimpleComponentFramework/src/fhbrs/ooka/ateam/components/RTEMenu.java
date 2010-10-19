@@ -2,10 +2,11 @@ package fhbrs.ooka.ateam.components;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.net.*;
 
 public class RTEMenu {
 
-	private enum MenuName {MAIN, COMPONENTS, COMPONENT, ADD, EXIT};
+	private enum MenuName {MAIN, COMPONENTS, COMPONENT, ADD, EXIT, SOURCES};
 	private MenuName name = MenuName.MAIN;
 	private ComponentManager manager;
     private ArrayList<IComponent> components;
@@ -33,6 +34,9 @@ public class RTEMenu {
 			
 			case ADD: addMenu();
 			break;
+			
+			case SOURCES: sourcesMenu();
+			break;
 
 			case EXIT: exitMenu();
 			break;
@@ -41,10 +45,11 @@ public class RTEMenu {
 	
 	private void mainMenu() throws IOException{
 		System.out.println("Please enter a number to choose an option:");
-		System.out.println("0: Exit");
 		System.out.println("1: Show all loaded Components");
 		System.out.println("2: Show all running Components");
 		System.out.println("3: Add a component");
+		System.out.println("4: Show all Sources");
+		System.out.println("0: Exit");
 		input = in.readLine();
 		if(input.equals("1")){
 			running = false;
@@ -56,6 +61,9 @@ public class RTEMenu {
 		}
 		else if(input.equals("3")){
 			name = MenuName.ADD;
+		}
+		else if(input.equals("4")){
+			name = MenuName.SOURCES;
 		}
 		else if(input.equals("0") || input.equals("exit")){
 			name = MenuName.EXIT;
@@ -130,14 +138,48 @@ public class RTEMenu {
 	}
 
 	private void addMenu() throws IOException{
-		System.out.println("Please enter the URL or system file path to the" +
-				" Component you want to add");
+		System.out.println("Please enter the classname of the component you want to add");
+		System.out.println("Enter 0 or 'back' to return to the main menu.");
 		input = in.readLine();
 		if (input.equals("0") || input.equals("back")){
 			name = MenuName.MAIN;
 		}
-		//manager.add();
-		name = MenuName.MAIN;
+		else{
+			try{
+				IComponent comp = repo.createComponent(input);
+				manager.add(comp);
+				System.out.println("Compnent has been added.");
+				name = MenuName.MAIN;
+			}
+			catch (Exception e){
+				System.out.println("The specified component could not be found.");
+			}
+		}
+	}
+	
+	private void sourcesMenu() throws IOException{
+		System.out.println("List of all known sources");
+		System.out.println("Enter 1 or 'add' to add a source.");
+		System.out.println("Enter 0 or 'back' to return to the main menu.");
+		input = in.readLine();
+		if (input.equals("0") || input.equals("back")){
+			name = MenuName.MAIN;
+		}
+		else if(input.equals("1") || input.equals("add")){
+			System.out.println("Please enter the URL or filepath to the source.");
+			System.out.println("Enter 0 or 'back' to return to the source menu.");
+			input = in.readLine();
+			if (input.equals("0") || input.equals("back")){
+				return;
+			}
+			try{
+				repo.getSources().add((new URL(input)));
+				System.out.println("Source has been added to the repository.");				
+			}
+			catch(MalformedURLException me){
+				System.out.println("Invalid URL or file path.");
+			}
+		}
 	}
 	
 	private void exitMenu() throws IOException{
