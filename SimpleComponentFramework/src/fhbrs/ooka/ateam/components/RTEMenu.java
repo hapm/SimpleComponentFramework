@@ -105,6 +105,7 @@ public class RTEMenu {
 	private void componentMenu() throws Exception{
 		String state = "stopped";
 		String toggle = "start";
+		String temp;
 		IComponent comp = manager.findByName(input);
 		if (comp.getState()==ComponentState.Running){
 			state="running";
@@ -117,6 +118,7 @@ public class RTEMenu {
 		System.out.println("Enter 2 or 'remove' to remove the component from the RTE");
 		System.out.println("Enter 0 or 'back' to return to the main Menu.");
 
+		temp = input;
 		input = in.readLine();
 		if (input.equals("0") || input.equals("back")){
 			name = MenuName.MAIN;
@@ -126,6 +128,7 @@ public class RTEMenu {
 				comp.stop();
 			else
 				comp.start();
+			input = temp;
 		}
 		else if(input.equals("2") || input.equals("remove")){
 			manager.remove(comp);
