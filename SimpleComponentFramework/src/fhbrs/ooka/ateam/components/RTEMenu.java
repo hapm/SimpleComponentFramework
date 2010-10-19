@@ -159,6 +159,9 @@ public class RTEMenu {
 	
 	private void sourcesMenu() throws IOException{
 		System.out.println("List of all known sources");
+		for (int i=0; i<repo.getSources().size(); i++){
+			System.out.println(repo.getSources().get(i));
+		}
 		System.out.println("Enter 1 or 'add' to add a source.");
 		System.out.println("Enter 0 or 'back' to return to the main menu.");
 		input = in.readLine();
