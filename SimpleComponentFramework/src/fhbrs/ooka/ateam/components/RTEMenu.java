@@ -127,7 +127,7 @@ public class RTEMenu {
 			if (comp.getState()==ComponentState.Running)
 				comp.stop();
 			else
-				comp.start();
+				comp.start(new ComponentContext(manager));
 			input = temp;
 		}
 		else if(input.equals("2") || input.equals("remove")){

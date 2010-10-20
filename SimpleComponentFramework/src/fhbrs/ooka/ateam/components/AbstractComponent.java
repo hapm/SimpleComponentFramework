@@ -1,25 +1,25 @@
 package fhbrs.ooka.ateam.components;
 
+/**
+ * Gives a default implementation of the IComponent interface.
+ * 
+ * @author Markus Andree
+ */
 public abstract class AbstractComponent implements IComponent {
 	/**
-	 * Saves the name of the component.
+	 * Saves the informations about the component.
 	 */
-	private String name;
-	
-	/**
-	 * Saves the version of the component.
-	 */
-	private float version;
-	
-	/**
-	 * Saves the desciption of the component.
-	 */
-	private String description;
+	private ComponentInfo information;
 	
 	/**
 	 * Saves the state of the component.
 	 */
 	protected ComponentState state;
+
+	/**
+	 * Saves the context the component runs in.
+	 */
+	private ComponentContext context;
 	
 	/**
 	 * Initializes a new instance of the AbstractComponent class.
@@ -29,35 +29,46 @@ public abstract class AbstractComponent implements IComponent {
 	 * @param desc The description for the component.
 	 */
 	public AbstractComponent(String name, float version, String desc) {
-		this.name = name;
-		this.version = version;
-		this.description = desc;
+		this.information = new ComponentInfo(name, version, desc);
 		this.state = ComponentState.Stopped;
 	}
 
 	@Override
+	@Deprecated
 	public String getName() {
-		return name;
+		return information.getName();
+	}
+	
+	@Override
+	public ComponentInfo getInformation() {
+		return information;
 	}
 
 	@Override
+	@Deprecated
 	public float getVersion() {
-		return version;
+		return information.getVersion();
 	}
 
 	@Override
+	@Deprecated
 	public String getDescription() {
-		return description;
+		return information.getDescription();
+	}
+	
+	@Override
+	public ComponentContext getContext() {
+		return context;
 	}
 
 	@Override
 	public ComponentState getState() {
-		// TODO Auto-generated method stub
 		return state;
 	}
 
 	@Override
-	public void start() throws Exception {
+	public void start(ComponentContext context) throws Exception {
+		this.context = context;
 		state = ComponentState.Running;
 	}
 
@@ -65,5 +76,4 @@ public abstract class AbstractComponent implements IComponent {
 	public void stop() throws Exception {
 		state = ComponentState.Stopped;
 	}
-
 }

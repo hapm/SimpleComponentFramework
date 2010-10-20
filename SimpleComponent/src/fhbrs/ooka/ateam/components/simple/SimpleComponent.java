@@ -1,6 +1,7 @@
 package fhbrs.ooka.ateam.components.simple;
 
 import fhbrs.ooka.ateam.components.AbstractComponent;
+import fhbrs.ooka.ateam.components.ComponentContext;
 
 /**
  * A simple component implementation of the IComponent interface, that doesn't do much.
@@ -16,15 +17,15 @@ public class SimpleComponent extends AbstractComponent {
 	}
 	
 	@Override
-	public void start() throws Exception {
-		super.start();
-		System.out.println(getName() + " was started successfully.");
+	public void start(ComponentContext context) throws Exception {
+		super.start(context);
+		System.out.println(getInformation().getName() + " was started successfully.");
 	}
 
 	@Override
 	public void stop() throws Exception {
 		super.stop();
-		System.out.println(getName() + " was stopped successfully.");
+		System.out.println(getInformation().getName() + " was stopped successfully.");
 	}
 
 }

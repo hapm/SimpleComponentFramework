@@ -20,7 +20,9 @@ public interface IComponent {
 	 * do no other actions. 
 	 * 
 	 * @return The human readable name of the component.
+	 * @deprecated See {@link IComponent#getInformation()}
 	 */
+	@Deprecated
 	public String getName();
 	
 	/**
@@ -34,7 +36,9 @@ public interface IComponent {
 	 * comparing of different versions.
 	 * 
 	 * @return The number of the version of the component.
+	 * @deprecated See {@link IComponent#getInformation()}
 	 */
+	@Deprecated
 	public float getVersion();
 	
 	/**
@@ -42,8 +46,24 @@ public interface IComponent {
 	 * information of what the component does.
 	 * 
 	 * @return A description (can be multilined).
+	 * @deprecated See {@link IComponent#getInformation()}
 	 */
+	@Deprecated
 	public String getDescription();
+	
+	/**
+	 * Gets informations about the component.
+	 * 
+	 * @return The ComponentInfo of this component.
+	 */
+	public ComponentInfo getInformation();
+	
+	/**
+	 * Gets the context of the component.
+	 * 
+	 * @return The ComponentContext the component runs in.
+	 */
+	public ComponentContext getContext();
 	
 	/**
 	 * Gets the current state of the Component. The values are 
@@ -64,12 +84,13 @@ public interface IComponent {
 	 * 
 	 * This method should be only called by the SimpleComponentFramework
 	 * and never directly!
+	 * @param context The context the component runs in.
 	 * 
 	 * @throws Exception If any Exception is thrown in this
 	 * 	       method, the component will not change its state 
 	 *         to running.
 	 */
-	public void start() throws Exception;
+	public void start(ComponentContext context) throws Exception;
 	
 	/**
 	 * This method is called, when the SimpleComponentFramework

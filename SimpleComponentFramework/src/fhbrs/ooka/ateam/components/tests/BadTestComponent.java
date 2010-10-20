@@ -1,39 +1,19 @@
 package fhbrs.ooka.ateam.components.tests;
 
-import fhbrs.ooka.ateam.components.ComponentState;
-import fhbrs.ooka.ateam.components.IComponent;
+import fhbrs.ooka.ateam.components.AbstractComponent;
+import fhbrs.ooka.ateam.components.ComponentContext;
 
-public class BadTestComponent implements IComponent {
+public class BadTestComponent extends AbstractComponent {
 	private BadTestComponent() {
-		
+		super(null, 0, null);
 	}
 
-	@Override
-	public String getName() {
-		return null;
+	public void start(ComponentContext context) throws Exception {
+		super.start(context);
 	}
 
-	@Override
-	public float getVersion() {
-		return 0;
-	}
-
-	@Override
-	public String getDescription() {
-		return null;
-	}
-
-	@Override
-	public ComponentState getState() {
-		return ComponentState.Stopped;
-	}
-
-	@Override
-	public void start() throws Exception {
-	}
-
-	@Override
 	public void stop() throws Exception {
+		super.stop();
 	}
 
 }
